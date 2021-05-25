@@ -21,6 +21,9 @@ class MyHomePage extends StatelessWidget {
     Transaction(id: "t2", title: "Cake", amount: 399, date: DateTime.now()),
   ];
 
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +32,11 @@ class MyHomePage extends StatelessWidget {
           title: Text('Expense App'),
         ),
         body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
               width: double.infinity,
-              height: 250,
+              height: 50,
               child: Card(
                   color: Color.fromRGBO(242, 242, 242, 0.7),
                   elevation: 10,
@@ -40,6 +44,35 @@ class MyHomePage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   )),
+            ),
+            Card(
+              elevation: 5,
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Title'),
+                      controller: titleController,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Amount'),
+                      controller: amountController,
+                    ),
+                    ElevatedButton(
+                      child: Text('Add Transaction'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.purple[600],
+                      ),
+                      onPressed: () {
+                        print(titleController.text);
+                        print(amountController.text);
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
             Column(
               children: transactions.map((tx) {
