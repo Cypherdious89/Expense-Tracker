@@ -10,7 +10,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Expense App',
+      title: 'Flutter App',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        accentColor: Colors.amber
+      ),
       home: MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -25,25 +29,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'Shoes',
-      amount: 699.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Cake',
-      amount: 599,
-      date: DateTime.now(),
-    ),
+  final List<Transaction> _userTransactions = 
+  [
+    Transaction(id: 't1', title: 'Shoes', amount: 699, date: DateTime.now()),
+    Transaction(id: 't2', title: 'Groceries', amount: 165, date: DateTime.now()),
   ];
 
-  void _addNewTransaction(String txTitle, double txAmt) {
+  void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
       title: txTitle,
-      amount: txAmt,
+      amount: txAmount,
       date: DateTime.now(),
       id: DateTime.now().toString(),
     );
@@ -70,8 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expense App'),
-        backgroundColor: Colors.deepPurple,
+        title: Text('Expense Tracker'),
+        // backgroundColor: Colors.deepPurple,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -82,20 +77,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
       body: SingleChildScrollView(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              width: double.infinity,
-              height: 100,
-              child: Card(
-                  color: Color.fromRGBO(242, 242, 242, 0.7),
-                  elevation: 10,
-                  child: Text('CHART !', textAlign: TextAlign.center),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  )),
-            ),
+                width: double.infinity,
+                height: 100,
+                child: Card(
+                    color: Theme.of(context).primaryColorLight,
+                    elevation: 10,
+                    child: Text('CHART !', textAlign: TextAlign.center),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )
+                ),
+              ),
             TransactionList(_userTransactions),
           ],
         ),
@@ -103,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple,
         child: Icon(Icons.add),
+        // backgroundColor: Colors.deepPurple,
         onPressed: () => _startAddNewTransaction(context),
       ),
     );
